@@ -4,9 +4,11 @@ from pkgutil import get_data
 import numpy as np
 
 from flask import Flask , request , Response , jsonify , make_response , abort
+from flask_cors import CORS
 
 app = Flask(__name__)
-
+cors = CORS(app, origins=['http://localhost:8080'])
+# cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 @app.route('/')
 def hello_world():
