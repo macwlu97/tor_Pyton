@@ -1,3 +1,4 @@
+import time
 from json import dumps
 from pkgutil import get_data
 import numpy as np
@@ -32,7 +33,7 @@ def home():
     # resp = Response(js , status=200 , mimetype='application/json')
     # resp.headers['Link'] = 'http://luisrei.com'
 
-    return resp
+    # return resp
 
 
 @app.route("/api/v1/deliver", methods=["POST"])
@@ -41,6 +42,7 @@ def deliver():
         if not request.json:
             abort(400)
         print(request.json)
+        time.sleep(10)
         return dumps(request.json)
 
 
