@@ -21,7 +21,7 @@
               <v-spacer></v-spacer>
 
               <v-btn flat @click="chart = false">Cancel</v-btn>
-              <v-btn color="primary" flat @click="chart = false">Save</v-btn>
+              <v-btn color="primary" flat @click="send_deliver_to_bus()">Buy Now</v-btn>
             </v-card-actions>
           </v-card>
         </v-menu>
@@ -30,7 +30,7 @@
 
     <v-content>
       <v-container fluid>
-        <router-view @data="add_to_cart"></router-view>
+        <router-view :providers_status="providers_status" @data="add_to_cart"></router-view>
       </v-container>
     </v-content>
     <v-footer></v-footer>
@@ -44,7 +44,7 @@ export default {
     return {
       items: [],
       chart: false,
-      providers_status: true
+      providers_status: ''
     };
   },
   mounted() {
@@ -55,38 +55,51 @@ export default {
     // };
 
     this.$http.get("http://localhost:5000/api/v1/status").then(response => {
-      this.providers_status = !!response.data.status ? true : false;
+      this.providers_status = response.data.status
     });
+  
 
-    // this.$http.get('https://api.allegro.pl/offers/listing?pharse=kappa').then(response => {
-    //   console.log(response.data)
-    // }).catch(error => {
-    //   console.log(error.response.data)
-    // })
+    // this.$http
+    //   .get("https://api.allegro.pl/offers/listing?pharse=kappa",config)
+    //   .then(response => {
+    //     console.log(response.data);
+    //   })
+    //   .catch(error => {
+    //     console.log(error);
+    //   });
   },
   methods: {
     add_to_cart(data) {
       this.items.push(data);
     },
-    validToken() {
-      const clientId = "d1814501b48143de85db0e7ece241ffd";
-      const ClientSecret =
-        "peC9cxZRv0M9li1LZQkKalcpLqNkQvDOZtzHjpODPiiBItpJruyppTPVMnRd1dqm";
-      let config = {
-        headers: {
-          Authorization: `Basic base64(${clientId}:${ClientSecret})`
-        }
-      };
+    send_deliver_to_bus(){
+      this.$http.post("http://localhost:5000/api/v1/deliver", {id: 1}).then(response => {
+        alert(response.data)
+      })
+    },
+    // validToken() {
+    //   const clientId = "d1814501b48143de85db0e7ece241ffd";
+    //   const ClientSecret =
+    //     "peC9cxZRv0M9li1LZQkKalcpLqNkQvDOZtzHjpODPiiBItpJruyppTPVMnRd1dqm";
+    //   let config = {
+    //     headers: {
+    //       Authorization: `Basic base64(${clientId}:${ClientSecret})`
+    //     }
+    //   };
 
-      this.$http
-        .get(
-          "https://allegro.pl/auth/oauth/token?grant_type=client_credentials",
-          config
-        )
-        .then(response => {
-          console.log(respopnse.data);
-        });
-    }
+    //   this.$http
+    //     .post(
+    //       "https://allegro.pl/auth/oauth/token?grant_type=client_credentials",
+    //       config
+    //     )
+    //     .then(response => {
+    //       console.log(respopnse.data);
+          
+    //     })
+    //     .catch(error => {
+    //       console.log(error);
+    //     });
+    // }
   }
 };
 </script>
