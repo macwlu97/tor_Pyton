@@ -14,28 +14,19 @@ def hello_world():
 
 @app.route('/api/v1/status', methods=['GET'])
 def home():
-    arr = [1,2,3,4,5]
-    # arr = np.random.randint(5 , size=(2 , 4))
-    # response = jsonify({
-    #                 'id': bucketlist.id ,
-    #             })
-    # response.status_code = 201
-    # return response
-    return make_response(dumps(arr))
+    data = []
+    for i in range(1,9):
+        idstat = dict()
+        idstat['id'] = i
+        data.append(idstat)
 
 
-# @app.route('/hello', methods = ['GET'])
-# def api_hello():
-#     data = {
-#         'hello'  : 'world',
-#         'number' : 3
-#     }
-#     js = dumps(data)
-#
-#     resp = Response(js, status=200, mimetype='application/json')
-#     resp.headers['Link'] = 'http://luisrei.com'
-#
-#     return resp
+    js = dumps(data)
+
+    resp = Response(js , status=200 , mimetype='application/json')
+    # resp.headers['Link'] = 'http://luisrei.com'
+
+    return resp
 
 #
 # @app.route("/api/v1/deliver", methods=["POST"])
