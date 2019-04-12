@@ -8,7 +8,7 @@
               <div class="product-image"/>
             </v-card-media>
             <v-card-actions class="py-1">
-              <v-btn small color="error">
+              <v-btn small color="error" @click="add_product(i)">
                 <v-icon>add_shopping_cart</v-icon>Get this product in: 30 min!
               </v-btn>
             </v-card-actions>
@@ -27,11 +27,20 @@
 
 <script>
 export default {
-  name: "home"
+  props: {
+    items: Object
+  },
+  name: "home",
+  methods: {
+    add_product(item_id) {
+      this.$emit('data', item_id);
+
+    }
+  }
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .product-image {
   margin: 10px auto;
 
