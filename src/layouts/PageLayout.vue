@@ -41,11 +41,14 @@ export default {
   data() {
     return {
       items: [],
-      chart: false
+      chart: false,
+      providers_status: true,
     };
   },
   mounted() {
-    ajax
+    this.$http.get('apiv1/status').then(response => {
+        this.providers_status = !!response.data.providers.status ?  true : false
+    })
   },
   methods: {
     add_to_cart(data) {
