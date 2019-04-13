@@ -49,7 +49,7 @@
 
     <v-content>
       <v-container fluid>
-        <router-view :items="items" :providers_status="providers_status" @data="add_to_cart"></router-view>
+        <router-view :items="items" :providers_status="this.$status" @data="add_to_cart"></router-view>
       </v-container>
     </v-content>
     <v-footer></v-footer>
@@ -63,16 +63,13 @@ export default {
     return {
       chartItems: [],
       chart: false,
-      providers_status: false,
+
       items: {},
       searchValue: '',
     };
   },
   mounted() {
-    this.$store.dispatch('status').then(response => {
-      console.log(response)
-      this.providers_status = response.data.status;
-    })
+    this.$socket.emit('status')
     this.$store.dispatch('search', "czerwony").then(response => {
       this.items = response.data.items.regular;
     })
@@ -82,12 +79,7 @@ export default {
       this.chartItems.push(data);
     },
     send_deliver_to_bus() {
-      this.$socket.emit('deliver', 'kappa')
-      // this.$http
-      //   .post("http://localhost:5000/api/v1/deliver", { id: 1 })
-      //   .then(response => {
-      //     alert(response.data);
-      //   });
+      this.$socket.emit('deliver')
     },
     removeFromChart(data) {
       this.chartItems.pop(data);

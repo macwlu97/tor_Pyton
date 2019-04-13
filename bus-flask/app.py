@@ -30,39 +30,36 @@ def popular(phrase):
     resp = Response(result , status=200 , mimetype='application/json')
     return resp
 
-@app.route('/api/v1/status', methods=['GET'])
-def home():
-    data = {
-        "status": "true"
-    }
-    js = dumps(data)
-    resp = Response(js , status=200 , mimetype='application/json')
-    return resp
+# @app.route('/api/v1/status', methods=['GET'])
+# def home():
+#     data = {
+#         "status": "true"
+#     }
+#     js = dumps(data)
+#     resp = Response(js , status=200 , mimetype='application/json')
+#     return resp
 
-# @bus.on('Provider')
-# def subscribed_event(request):
-#     if request.method == "POST":
-#         if not request.json:
-#             abort(400)
-#         print(request.json)
-#         # time.sleep(10)
-#         # return dumps(request.json)
-#         js = dumps(request.json)
-#         resp = Response(js , status=200 , mimetype='application/json')
-#         return resp
-        
-# # def event_bus_action():
+@bus.on('Provider')
+def provider_event():
+    time.sleep(10)
+    emit('deliver_success', {'data':'provider_id'})
+
+@bus.on('Status')
+def status_event():
+    print("test-status")
+    emit('status_success', {"status": "true"})
 
 @socketio.on('connect')
 def test_connect():
-    emit('after connect', {'data':'Lets dance'})
-    print("test connmect")
+    emit('after connect', {'data':'Connect Success'})
 
 @socketio.on('deliver')
-def deliver_message(message):
-    print("kappa")
-    time.sleep(10)
-    emit('deliver_success', {'data':'Lets kappa'})
-    
+def deliver_message():
+    bus.emit('Provider')
+
+@socketio.on('status')
+def status_message():
+    bus.emit('Status')
+
 if __name__ == '__main__':
     app.run()
