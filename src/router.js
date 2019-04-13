@@ -4,6 +4,7 @@ import Home from './views/Home.vue';
 import PageLayout from './layouts/PageLayout.vue';
 import Products from './views/Products.vue';
 import Product from './views/Product.vue';
+import Tracking from './views/Tracking.vue';
 
 Vue.use(Router);
 
@@ -36,14 +37,9 @@ export default new Router({
       ],
     },
     {
-      path: '/about',
-      name: 'about',
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue'),
-    },
-    {
       path: '/tracking',
       name: 'tracking',
-      component: () => import(/* webpackChunkName: "about" */ './views/Tracking.vue'),
+      component: Tracking,
     },
   ],
 });

@@ -17,7 +17,7 @@
                 </template>
                 <v-icon>shopping_cart</v-icon>
               </v-badge>
-               <v-icon v-else>shopping_cart</v-icon>
+              <v-icon v-else>shopping_cart</v-icon>
             </v-btn>
           </template>
           <v-card v-for="item in chartItems" :key="item.id">
@@ -47,13 +47,11 @@
           <v-divider/>
           <v-card>
             <v-card-actions>
-              <v-spacer />
+              <v-spacer/>
 
               <v-btn flat @click="chart = false">Cancel</v-btn>
               <v-btn dark class="allegro_orange" flat @click="send_deliver_to_bus()">Buy Now</v-btn>
-               <v-spacer />
-
-
+              <v-spacer/>
             </v-card-actions>
           </v-card>
         </v-menu>
@@ -62,7 +60,12 @@
 
     <v-content>
       <v-container fluid>
-        <router-view :categories="categories" :items="items" :providers_status="this.$status" @data="add_to_cart"></router-view>
+        <router-view
+          :categories="categories"
+          :items="items"
+          :providers_status="this.$status"
+          @data="add_to_cart"
+        ></router-view>
       </v-container>
     </v-content>
     <v-footer></v-footer>
@@ -83,10 +86,6 @@ export default {
   },
   mounted() {
     this.$socket.emit("status");
-    this.$store.dispatch("search", "czerwony").then(response => {
-      this.items = response.data.items.regular;
-      this.categories = response.data;
-    });
   },
   methods: {
     add_to_cart(data) {
