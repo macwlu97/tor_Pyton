@@ -26,8 +26,7 @@ new Vue({
       this.$swal({
         title: 'Przyjęto do realizacji',
         text: 'Twoja paczka jest w drodze!',
-        type: 'success',
-        footer: "<a href='/tracking'>Śledź przesyłkę</a>"
+        type: 'success'
       });
     },
     status_success(data) {
