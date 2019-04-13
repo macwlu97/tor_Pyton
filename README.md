@@ -25,5 +25,12 @@ yarn run test
 yarn run lint
 ```
 
+### Flask 
+```
+cd bus-flask
+
+flask run
+```
+
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
