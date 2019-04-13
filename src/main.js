@@ -20,14 +20,16 @@ Vue.config.productionTip = false;
 
 new Vue({
   sockets: {
-    connect () {
-        },
-    deliver_success (data) {
-            this.$swal('Przyjęto do realizacji',
-            'Twoja paczka jest w drodze!',
-            'success');
-            
-        },
+    connect() {
+    },
+    deliver_success(data) {
+      this.$swal({
+        title: 'Przyjęto do realizacji',
+        text: 'Twoja paczka jest w drodze!',
+        type: 'success',
+        footer: "<a href='/tracking'>Śledź przesyłkę</a>"
+      });
+    },
     status_success(data) {
       Vue.prototype.$status = true;
     },
