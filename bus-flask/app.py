@@ -1,14 +1,6 @@
 import time
 from json import dumps
-from pkgutil import get_data
-
-# from pip._vendor import requests
-# from potion_client import Client
-# from potion_client.auth import HTTPBearerAuth
-# from potion_client.exceptions import ItemNotFound
 import json
-# import APIClient as APIClient
-import numpy as np
 import requests
 
 from flask import Flask , Response , jsonify , make_response , abort , request
@@ -17,7 +9,6 @@ from requests.auth import HTTPDigestAuth
 
 app = Flask(__name__)
 cors = CORS(app, origins=['http://localhost:8080'])
-# cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 @app.route('/')
 def hello_world():
