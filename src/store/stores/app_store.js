@@ -45,7 +45,7 @@ const AppStore = {
       return new Promise((resolve, reject) => {
         axios.get(`${API_ENDPOINT}/popular`)
           .then((response) => {
-            commit('many', response.data);
+            commit('many_success', response.data);
             resolve(response);
           })
           .catch((err) => {
@@ -59,7 +59,7 @@ const AppStore = {
       return new Promise((resolve, reject) => {
         axios.get(`${API_ENDPOINT}/popular/${data}`)
           .then((response) => {
-            commit('many', response.data);
+            commit('many_success', response.data);
             resolve(response);
           })
           .catch((err) => {
@@ -68,19 +68,19 @@ const AppStore = {
           });
       });
     },
-    // view({ commit }, id) {
-    //   return new Promise((resolve, reject) => {
-    //     axios.get(`${API_ENDPOINT}/product/${id}`)
-    //       .then((response) => {
-    //         commit('many', response.data);
-    //         resolve(response);
-    //       })
-    //       .catch((err) => {
-    //         commit('error');
-    //         reject(err);
-    //       });
-    //   });
-    // },
+    view({ commit }, id) {
+      return new Promise((resolve, reject) => {
+        axios.get(`${API_ENDPOINT}/products/${id}`)
+          .then((response) => {
+            commit('one_success', response.data);
+            resolve(response);
+          })
+          .catch((err) => {
+            commit('error');
+            reject(err);
+          });
+      });
+    },
   },
 };
 
