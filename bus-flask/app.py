@@ -1,9 +1,7 @@
 import time
-from json import dumps
-import json
 import requests
 
-from flask import Flask , Response , jsonify , make_response , abort , request
+from flask import Flask , Response
 from flask_cors import CORS
 from event_bus import EventBus
 from flask_socketio import SocketIO, emit
