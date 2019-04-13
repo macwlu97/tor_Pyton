@@ -34,6 +34,9 @@
                 <v-card-text class="py-0">
                   <p>{{ item.name }}</p>
                 </v-card-text>
+                <v-card-actions>
+                  <v-btn flat small :to="{name: 'Product', params: {id: item.id, item: item}}">View</v-btn>
+                </v-card-actions>
                         </v-flex>
                 
                   </v-layout>

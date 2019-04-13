@@ -45,8 +45,12 @@ export default {
   methods: {
     add_product(item) {
       this.$emit('data', item);
-
     }
+  },
+  mounted() {
+      this.$store.dispatch("search", "czerwony").then(response => {
+      this.items = response.data.items.regular;
+    });
   }
 };
 </script>

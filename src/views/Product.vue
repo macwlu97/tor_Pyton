@@ -38,6 +38,7 @@ export default {
   },
   mounted(){
     if(this.$route.params.item) {
+      localStorage.removeItem('item')
       localStorage.setItem('item', JSON.stringify(this.$route.params.item));
     }
     this.it = JSON.parse(localStorage.getItem('item'));
