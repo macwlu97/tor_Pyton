@@ -9,7 +9,6 @@
       </v-form>
 
       <v-spacer/>
-
       <v-toolbar-items>
         <v-menu v-model="chart" :close-on-content-click="false" :nudge-width="200" offset-x>
           <template v-slot:activator="{ on }">
@@ -83,11 +82,12 @@ export default {
       this.chartItems.push(data);
     },
     send_deliver_to_bus() {
-      this.$http
-        .post("http://localhost:5000/api/v1/deliver", { id: 1 })
-        .then(response => {
-          alert(response.data);
-        });
+      this.$socket.emit('deliver', 'kappa')
+      // this.$http
+      //   .post("http://localhost:5000/api/v1/deliver", { id: 1 })
+      //   .then(response => {
+      //     alert(response.data);
+      //   });
     },
     removeFromChart(data) {
       this.chartItems.pop(data);

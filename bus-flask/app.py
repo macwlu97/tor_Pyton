@@ -13,10 +13,6 @@ app = Flask(__name__)
 cors = CORS(app, origins=['http://localhost:8080'])
 socketio = SocketIO(app)
 
-@app.route('/')
-def hello_world():
-    return 'Hello Worlds!'
-
 @app.route('/api/v1/popular/<phrase>', methods=['GET'])
 def popular(phrase):
     url = "https://api.allegro.pl.allegrosandbox.pl/offers/listing"
@@ -34,12 +30,6 @@ def popular(phrase):
     resp = Response(result , status=200 , mimetype='application/json')
     return resp
 
-
-@app.route('/user/<username>')
-def show_user_profile(username):
-    # show the user profile for that user
-    return 'User %s' % username
-
 @app.route('/api/v1/status', methods=['GET'])
 def home():
     data = {
@@ -48,53 +38,31 @@ def home():
     js = dumps(data)
     resp = Response(js , status=200 , mimetype='application/json')
     return resp
-    # data = []
-    # for i in range(1,9):
-    #     idstat = dict()
-    #     idstat['id'] = i
-    #     data.append(idstat)
 
-
-    # js = dumps(data)
-    #
-    # resp = Response(js , status=200 , mimetype='application/json')
-    # resp.headers['Link'] = 'http://luisrei.com'
-
-    # return resp
-
-
-@app.route("/api/v1/deliver", methods=["POST"])
-def deliver():
-    socketio.run(app , host='127.0.0.1')
-    # bus.emit('Provider' , request)
-    # if request.method == "POST":
-    #     if not request.json:
-    #         abort(400)
-    #     print(request.json)
-    #     time.sleep(10)
-        # event_bus_action()
-        # return dumps(request.json)
-
-
-@bus.on('Provider')
-def subscribed_event(request):
-    if request.method == "POST":
-        if not request.json:
-            abort(400)
-        print(request.json)
-        # time.sleep(10)
-        # return dumps(request.json)
-        js = dumps(request.json)
-        resp = Response(js , status=200 , mimetype='application/json')
-        return resp
-
-
-# def event_bus_action():
+# @bus.on('Provider')
+# def subscribed_event(request):
+#     if request.method == "POST":
+#         if not request.json:
+#             abort(400)
+#         print(request.json)
+#         # time.sleep(10)
+#         # return dumps(request.json)
+#         js = dumps(request.json)
+#         resp = Response(js , status=200 , mimetype='application/json')
+#         return resp
+        
+# # def event_bus_action():
 
 @socketio.on('connect')
 def test_connect():
-emit('after connect', {'data':'Lets dance'})
+    emit('after connect', {'data':'Lets dance'})
+    print("test connmect")
 
-
+@socketio.on('deliver')
+def deliver_message(message):
+    print("kappa")
+    time.sleep(10)
+    emit('deliver_success', {'data':'Lets kappa'})
+    
 if __name__ == '__main__':
     app.run()
