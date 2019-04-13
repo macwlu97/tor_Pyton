@@ -6,8 +6,11 @@
         <div class="kurier">
           <div></div>
           Tracking paczki
-        </div>#Mapa
+        </div>
+        <!-- #Mapa -->
       </div>
+      <div class="headtitle"> Tracking paczki </div>
+      <div class="desc"> Dostawa z X do Y </div>
     </v-card>
   </v-container>
 </div> 
@@ -67,5 +70,14 @@ export default {
     -o-transform: rotate(70deg);
     -ms-transform: rotate(70deg);
     transform: rotate(70deg);
+  }
+
+  .headtitle {
+    font-size: 2vw;
+    margin: 2vw;
+  }
+  .desc {
+    font-size: 1vw;
+    margin: 2.5vw;
   }
 </style>

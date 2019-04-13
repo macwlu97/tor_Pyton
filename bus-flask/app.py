@@ -5,10 +5,13 @@ import requests
 
 from flask import Flask , Response , jsonify , make_response , abort , request
 from flask_cors import CORS
-from requests.auth import HTTPDigestAuth
+from event_bus import EventBus
+from flask_socketio import SocketIO, emit
 
+bus = EventBus()
 app = Flask(__name__)
 cors = CORS(app, origins=['http://localhost:8080'])
+socketio = SocketIO(app)
 
 @app.route('/')
 def hello_world():
@@ -62,28 +65,35 @@ def home():
 
 @app.route("/api/v1/deliver", methods=["POST"])
 def deliver():
+    socketio.run(app , host='127.0.0.1')
+    # bus.emit('Provider' , request)
+    # if request.method == "POST":
+    #     if not request.json:
+    #         abort(400)
+    #     print(request.json)
+    #     time.sleep(10)
+        # event_bus_action()
+        # return dumps(request.json)
+
+
+@bus.on('Provider')
+def subscribed_event(request):
     if request.method == "POST":
         if not request.json:
             abort(400)
         print(request.json)
-        time.sleep(10)
-        return dumps(request.json)
+        # time.sleep(10)
+        # return dumps(request.json)
+        js = dumps(request.json)
+        resp = Response(js , status=200 , mimetype='application/json')
+        return resp
 
 
+# def event_bus_action():
 
-
-#         name = str(request.data.get('name' , ''))
-#         if name:
-#             bucketlist = Bucketlist(name=name)
-#             bucketlist.save()
-#             response = jsonify({
-#                 'id': bucketlist.id ,
-#                 'name': bucketlist.name ,
-#                 'date_created': bucketlist.date_created ,
-#                 'date_modified': bucketlist.date_modified
-#             })
-#             response.status_code = 201
-#             return response
+@socketio.on('connect')
+def test_connect():
+emit('after connect', {'data':'Lets dance'})
 
 
 if __name__ == '__main__':
