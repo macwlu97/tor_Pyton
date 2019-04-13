@@ -41,12 +41,23 @@ const AppStore = {
           });
       });
     },
-    getProducts({ commit }) {
+    index({ commit }) {
       return new Promise((resolve, reject) => {
-        axios.defaults.headers.common.Authorization = access_token;
-        axios.defaults.headers.common.Accept = 'application/vnd.allegro.public.v1+json';
-        axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
-        axios.get(`${API_ALLEGRO}/offers/listing?phrase=czerwona+sukienka`)
+        axios.get(`${API_ENDPOINT}/popular`)
+          .then((response) => {
+            commit('many', response.data);
+            resolve(response);
+          })
+          .catch((err) => {
+            commit('error');
+            console.log(err.response);
+            reject(err);
+          });
+      });
+    },
+    search({ commit }, data) {
+      return new Promise((resolve, reject) => {
+        axios.get(`${API_ENDPOINT}/popular/${data}`)
           .then((response) => {
             commit('many', response.data);
             resolve(response);
@@ -57,8 +68,20 @@ const AppStore = {
           });
       });
     },
+    // view({ commit }, id) {
+    //   return new Promise((resolve, reject) => {
+    //     axios.get(`${API_ENDPOINT}/product/${id}`)
+    //       .then((response) => {
+    //         commit('many', response.data);
+    //         resolve(response);
+    //       })
+    //       .catch((err) => {
+    //         commit('error');
+    //         reject(err);
+    //       });
+    //   });
+    // },
   },
-
 };
 
 export default AppStore;

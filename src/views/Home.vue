@@ -2,21 +2,21 @@
   <section>
     <v-container grid-list-xl>
       <v-layout row wrap>
-        <v-flex xs12 md3 v-for="i in items" :key="i">
+        <v-flex d-flex xs12 md3 v-for="item in items" :key="item.id">
           <v-card hover>
             <v-card-media>
-              <div class="product-image"/>
+              <v-img v-if="item.images[0]" :src="item.images[0].url" height="200px" />
             </v-card-media>
             <v-card-actions class="py-1">
-              <v-btn v-if="providers_status" small color="error" @click="add_product(i)">
+              <v-btn v-if="providers_status" small color="error" @click="add_product(item.id)">
                 <v-icon>add_shopping_cart</v-icon>Get this product in: 30 min!
               </v-btn>
             </v-card-actions>
             <v-card-title class="py-1">
-              <h5 class="title">170zł</h5>
+              <h5 class="title">{{ item.sellingMode.price.amount}} {{ item.sellingMode.price.currency}}</h5>
             </v-card-title>
             <v-card-text class="py-0">
-              <p>Excepteur sit irure occaecat tempor eu exercitation nisi sint id fugiat. Ipsum cupidatat Lorem cupidatat aliquip. Excepteur tempor nisi quis incididunt sunt quis nisi mollit deserunt.</p>
+              <p>{{ item.name }}</p>
             </v-card-text>
           </v-card>
         </v-flex>
@@ -28,18 +28,13 @@
 <script>
 export default {
   name: "home",
-  props: { providers_status: {
+  props: { 
+    providers_status: {
     type: Boolean
-  }},
-  data() {
-    return {
-      items: {},
-    };
   },
-  mounted() {
-    this.$store.dispatch('getProducts').then(response => {
-      this.items = response.data;
-    })
+  items: {
+    type: Object
+  }
   },
   methods: {
     add_product(item_id) {
@@ -50,16 +45,3 @@ export default {
 };
 </script>
 
-<style lang="scss">
-.product-image {
-  margin: 10px auto;
-  display: block;
-  width: 100%;
-  height: 200px;
-  background: #131313;
-  &__small{
-    height: 50px;
-    width: 50px;
-  }
-}
-</style>

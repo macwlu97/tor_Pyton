@@ -5,7 +5,7 @@
         PYTON_DELIVER
         </v-toolbar-title>
       <v-form @submit="search()" onSubmit="return false;">
-        <v-text-field solo flat color="orange" hide-details label="Search" width="100"/>
+        <v-text-field v-model="searchValue" solo flat color="orange" hide-details label="Search" width="100"/>
       </v-form>
 
       <v-spacer/>
@@ -17,7 +17,7 @@
               <v-icon>shopping_cart</v-icon>
             </v-btn>
           </template>
-          <v-card v-for="i in items" :key="i">
+          <v-card v-for="i in chartItems" :key="i">
             <v-flex xs12 md3>
             </v-flex>
             <v-flex xs12 md9>
@@ -44,7 +44,7 @@
 
     <v-content>
       <v-container fluid>
-        <router-view :providers_status="providers_status" @data="add_to_cart"></router-view>
+        <router-view :items="items" :providers_status="providers_status" @data="add_to_cart"></router-view>
       </v-container>
     </v-content>
     <v-footer></v-footer>
@@ -56,41 +56,25 @@ export default {
   name: "PageLayout",
   data() {
     return {
-      items: [],
+      chartItems: [],
       chart: false,
-      providers_status: false
+      providers_status: false,
+      items: {},
+      searchValue: '',
     };
   },
   mounted() {
     this.$store.dispatch('status').then(response => {
       console.log(response)
       this.providers_status = response.data.status;
-    }).catch(error => {
-      console.log(error.response)
     })
-    // let config = {
-    //   headers: {
-    //     Authorization: "Bearer " + this.validToken()
-    //   }
-    // };
-
-    // this.
-    // this.$http.get("http://localhost:5000/api/v1/status").then(response => {
-      // this.providers_status = response.data.status;
-    // });
-
-    // this.$http
-    //   .get("https://api.allegro.pl/offers/listing?pharse=kappa", config)
-    //   .then(response => {
-    //     console.log(response.data);
-    //   })
-    //   .catch(error => {
-    //     console.log(error);
-    //   });
+    this.$store.dispatch('search', "czerwony").then(response => {
+      this.items = response.data.items.regular;
+    })
   },
   methods: {
     add_to_cart(data) {
-      this.items.push(data);
+      this.chartItems.push(data);
     },
     send_deliver_to_bus() {
       this.$http
@@ -100,37 +84,15 @@ export default {
         });
     },
     removeFromChart(data) {
-      this.items.pop(data);
+      this.chartItems.pop(data);
     },
     search() {
-      // alert('kappa')
+      this.$store.dispatch('search', this.searchValue).then(response => {
+      this.items = response.data.items.regular;
       this.$router.push("/products");
+    })
+      
     },
-    // validToken() {
-    //   const clientId = "8eb7d8db68e94ad9b60a889db6e1257b";
-    //   const ClientSecret =
-    //     "QOsICIeXWKP8fxMhKo2VCXfF6ccSuYoRRqLcse5jyaHhethQ5gwhjGS6sNgIYd8K";
-    //     const base = btoa(clientId + ":" + ClientSecret);
-    //   let config = {
-    //     headers: {          
-    //         Authorization:
-    //         "Basic " + base,
-    //         'Content-Type': 'application/x-www-form-urlencoded',
-    //     }
-    //   };
-
-      // this.$http
-      //   .post(
-      //     `https://allegro.pl/auth/oauth/device?client_id=${clientId}`,
-      //     config
-      //   )
-      //   .then(response => {
-      //     console.log(response.data);
-      //   })
-      //   .catch(error => {
-      //     console.log(error);
-      //   });
-    // }
   }
 };
 </script>

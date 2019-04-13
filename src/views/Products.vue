@@ -24,28 +24,30 @@
         </v-flex>
         <v-flex xs12 md9>
           <v-layout row wrap>
-            <v-flex xs12 v-for="i in 40" :key="i">
-              <v-card hover class="py-2" :to="{name: 'Product', params: {id: i}}" > 
+            <v-flex xs12 v-for="item in items" :key="item.id">
+              <v-card hover>
                 <v-layout row wrap>
                   <v-flex xs12 md3>
-                    <v-card-media>
-                      <div class="product-image"/>
-                    </v-card-media>
-                  </v-flex>
-                  <v-flex xs12 md9>
-                    <v-card-text class="pt-2 pb-0">
-                      <p class="mb-0">Excepteur sit irure occaecat tempor eu exercitation nisi sint id fugiat. Ipsum cupidatat Lorem cupidatat aliquip. Excepteur tempor nisi quis incididunt sunt quis nisi mollit deserunt.</p>
-                    </v-card-text>
-                    <v-card-title class="py-0">
-                      <h5 class="title">170zł</h5>
-                    </v-card-title>
-                    <v-card-actions class="py-1">
-                      <v-btn small color="error">
-                        <v-icon>add_shopping_cart</v-icon>Get this product in: 30 min!
-                      </v-btn>
-                    </v-card-actions>
-                  </v-flex>
-                </v-layout>
+                     <v-card-media>
+                  <v-img v-if="item.images[0]" :src="item.images[0].url" height="200px" />
+                </v-card-media>
+                    </v-flex>
+                    <v-flex xs12 md9>
+                      <v-card-actions class="py-1">
+                  <v-btn v-if="providers_status" small color="error" @click="add_product(item.id)">
+                    <v-icon>add_shopping_cart</v-icon>Get this product in: 30 min!
+                  </v-btn>
+                </v-card-actions>
+                <v-card-title class="py-1">
+                  <h5 class="title">{{ item.sellingMode.price.amount}} {{ item.sellingMode.price.currency}}</h5>
+                </v-card-title>
+                <v-card-text class="py-0">
+                  <p>{{ item.name }}</p>
+                </v-card-text>
+                        </v-flex>
+                
+                  </v-layout>
+               
               </v-card>
             </v-flex>
           </v-layout>
@@ -57,7 +59,21 @@
 
 <script>
 export default {
-  name: "Products"
+  name: "Products",
+  props: { 
+    providers_status: {
+    type: String
+  },
+  items: {
+    type: Array
+  }
+  },
+    methods: {
+    add_product(item_id) {
+      this.$emit('data', item_id);
+
+    }
+  }
 };
 </script>
 
