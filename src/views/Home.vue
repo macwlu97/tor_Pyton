@@ -56,8 +56,13 @@ export default {
       type: Boolean
     },
     items: {
-      type: Array
+      type: Object
     }
+  },
+  data() {
+    return {
+      items: {}
+    };
   },
   methods: {
     add_product(item) {
@@ -66,7 +71,7 @@ export default {
   },
   mounted() {
     this.$store.dispatch("search", "czerwony").then(response => {
-      this.items = response.data.items.regular;
+      this.items = response.data.items.promoted;
     });
   }
 };

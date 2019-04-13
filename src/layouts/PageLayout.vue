@@ -99,7 +99,7 @@ export default {
     },
     search() {
       this.$store.dispatch("search", this.searchValue).then(response => {
-        this.items = response.data.items.regular;
+        this.items = response.data.items.promoted;
         this.categories = response.data;
         this.$router.push("/products");
       });

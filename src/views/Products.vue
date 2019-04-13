@@ -18,9 +18,9 @@
               <v-card hover>
                 <v-layout row wrap>
                   <v-flex xs12 md3>
-                    <v-card-media>
+                    <v-responsive>
                       <v-img v-if="item.images[0]" :src="item.images[0].url" height="200px"/>
-                    </v-card-media>
+                    </v-responsive>
                   </v-flex>
                   <v-flex xs12 md9>
                     <v-card-actions class="py-1">

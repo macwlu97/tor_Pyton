@@ -11,7 +11,7 @@ import VueSweetalert2 from 'vue-sweetalert2';
 Vue.use(VueSweetalert2);
 Vue.prototype.$http = axios;
 Vue.use(Vuetify);
-Vue.prototype.$status = false;
+Vue.prototype.$status = true;
 Vue.use(new VueSocketIO({
   debug: true,
   connection: 'http://localhost:5000',
