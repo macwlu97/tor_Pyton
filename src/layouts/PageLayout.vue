@@ -1,11 +1,11 @@
 <template>
   <v-app light>
-    <v-toolbar app class="white">
-      <v-toolbar-title class="pr-4 text-lowercase orange--text">
+    <v-toolbar flat app class="white elevation-1" >
+      <v-toolbar-title class="pr-5 text-lowercase allegro_orange__text">
         PYTON_DELIVER
         </v-toolbar-title>
-      <v-form @submit="search()" onSubmit="return false;">
-        <v-text-field v-model="searchValue" solo flat color="orange" hide-details label="Search" width="100"/>
+      <v-form @submit="search()" onSubmit="return false;" class="elevation-1" flat>
+        <v-text-field v-model="searchValue" solo flat color="orange" hide-details label="Search"/>
       </v-form>
 
       <v-spacer/>
@@ -17,17 +17,23 @@
               <v-icon>shopping_cart</v-icon>
             </v-btn>
           </template>
-          <v-card v-for="i in chartItems" :key="i">
+          <v-card v-for="item in chartItems" :key="item.id">
+            <v-layout row wrap>
             <v-flex xs12 md3>
+              <v-card-media class="pa-2">
+              <v-img v-if="item.images[0]" :src="item.images[0].url" height="70px" />
+              <v-img v-else src="https://www.pcgamesn.com/wp-content/uploads/2018/10/gabe_newell_meme-580x334.jpg" height="70px" />
+            </v-card-media>
             </v-flex>
-            <v-flex xs12 md9>
+            <v-flex xs12 md7>
                 <v-card-text>
-                  <p>Eiusmod velit deserunt magna do laboris dolore eu mollit.</p>
+                  <p>{{item.name}}</p>
                 </v-card-text>
-                <v-card-actions>
-                  <v-btn flat @click="removeFromChart(i)"><v-icon>remove</v-icon></v-btn>
-                </v-card-actions>
             </v-flex>
+             <v-flex xs12 md2>
+               <v-btn flat icon @click="removeFromChart(item)"><v-icon>remove</v-icon></v-btn>
+                </v-flex>
+            </v-layout>
           </v-card>
           <v-divider />
           <v-card> 
@@ -97,5 +103,11 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss">
+.allegro_orange {
+  background: #ff5a00;
+  &__text {
+    color: #ff5a00;
+  }
+}
 </style>

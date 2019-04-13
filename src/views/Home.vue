@@ -3,12 +3,14 @@
     <v-container grid-list-xl>
       <v-layout row wrap>
         <v-flex d-flex xs12 md3 v-for="item in items" :key="item.id">
-          <v-card hover :to="{name: 'Product', params: {id: item.id, item: item}}" >
+          <v-card hover  >
             <v-card-media>
               <v-img v-if="item.images[0]" :src="item.images[0].url" height="200px" />
+              
+              <v-img v-else src="https://www.pcgamesn.com/wp-content/uploads/2018/10/gabe_newell_meme-580x334.jpg" height="200px" />
             </v-card-media>
             <v-card-actions class="py-1">
-              <v-btn v-if="providers_status" small color="error" @click="add_product(item.id)">
+              <v-btn v-if="providers_status" small color="error" @click="add_product(item)">
                 <v-icon>add_shopping_cart</v-icon>Get this product in: 30 min!
               </v-btn>
             </v-card-actions>
@@ -17,6 +19,7 @@
             </v-card-title>
             <v-card-text class="py-0">
               <p>{{ item.name }}</p>
+              <v-btn class="primary mx-0" small :to="{name: 'Product', params: {id: item.id, item: item}}">View</v-btn>
             </v-card-text>
           </v-card>
         </v-flex>
@@ -37,8 +40,8 @@ export default {
   }
   },
   methods: {
-    add_product(item_id) {
-      this.$emit('data', item_id);
+    add_product(item) {
+      this.$emit('data', item);
 
     }
   }
