@@ -1,31 +1,36 @@
 import Vue from 'vue';
 import axios from 'axios';
+import Vuetify from 'vuetify';
 import App from './App.vue';
 import router from './router';
 import store from './store';
-import Vuetify from 'vuetify';
 import 'vuetify/dist/vuetify.min.css';
 import VueSocketIO from 'vue-socket.io';
+import VueSweetalert2 from 'vue-sweetalert2';
 
+Vue.use(VueSweetalert2);
 Vue.prototype.$http = axios;
 Vue.use(Vuetify);
 Vue.prototype.$status = false;
 Vue.use(new VueSocketIO({
-    debug: true,
-    connection: 'http://localhost:5000',
+  debug: true,
+  connection: 'http://localhost:5000',
 }));
 Vue.config.productionTip = false;
 
 new Vue({
   sockets: {
-        connect: function () {
+    connect () {
         },
-        deliver_success: function (data) {
-            alert('twoje zamowienie jest w drodze');
+    deliver_success (data) {
+            this.$swal('Przyjęto do realizacji',
+            'Twoja paczka jest w drodze!',
+            'success');
+            
         },
-        status_success(data) {
-            Vue.prototype.$status = true;
-        },
+    status_success(data) {
+      Vue.prototype.$status = true;
+    },
   },
   router,
   store,
