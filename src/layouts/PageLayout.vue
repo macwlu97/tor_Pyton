@@ -1,7 +1,7 @@
 <template>
   <v-app light>
     <v-toolbar flat app class="white elevation-1">
-      <v-toolbar-title class="pr-5 text-lowercase allegro_orange__text">PYTON_DELIVER</v-toolbar-title>
+      <v-toolbar-title class="pr-5 pl-4 allegro_orange__text">PYTON_DELIVER</v-toolbar-title>
       <v-form @submit="search()" onSubmit="return false;" class="elevation-1" flat>
         <v-text-field v-model="searchValue" solo flat color="orange" hide-details label="Search"/>
       </v-form>
@@ -23,14 +23,14 @@
           <v-card v-for="item in chartItems" :key="item.id">
             <v-layout row wrap>
               <v-flex xs12 md3>
-                <v-card-media class="pa-2">
+                <v-responsive class="pa-2">
                   <v-img v-if="item.images[0]" :src="item.images[0].url" height="70px"/>
                   <v-img
                     v-else
                     src="https://www.pcgamesn.com/wp-content/uploads/2018/10/gabe_newell_meme-580x334.jpg"
                     height="70px"
                   />
-                </v-card-media>
+                </v-responsive>
               </v-flex>
               <v-flex xs12 md7>
                 <v-card-text>

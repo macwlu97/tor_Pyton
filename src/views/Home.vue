@@ -1,6 +1,6 @@
 <template>
   <section>
-    <v-container grid-list-xl>
+    <v-container fluid grid-list-xl>
       <v-layout row wrap>
         <v-flex d-flex xs12 md3 v-for="item in items" :key="item.id">
           <v-card hover>
@@ -55,9 +55,6 @@ export default {
     providers_status: {
       type: Boolean
     },
-    items: {
-      type: Object
-    }
   },
   data() {
     return {
