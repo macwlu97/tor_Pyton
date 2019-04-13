@@ -3,7 +3,7 @@
     <v-container grid-list-xl>
       <v-layout row wrap>
         <v-flex d-flex xs12 md3 v-for="item in items" :key="item.id">
-          <v-card hover>
+          <v-card hover :to="{name: 'Product', params: {id: item.id, item: item}}" >
             <v-card-media>
               <v-img v-if="item.images[0]" :src="item.images[0].url" height="200px" />
             </v-card-media>
