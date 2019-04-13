@@ -4,22 +4,12 @@
       <v-layout row wrap>
         <v-flex md3 hidden-xs>
           <v-card>  
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
+            <h4 class="pt-2 ml-2 font-weight-regular">Kategorie:</h4>
+              <v-list dense> 
+                <v-list-tile v-for="item in categories.categories.subcategories" :key="item">
+                  <v-list-tile-content>{{item.name}}</v-list-tile-content>
+                </v-list-tile>
+              </v-list>
           </v-card>
         </v-flex>
         <v-flex xs12 md9>
@@ -34,8 +24,8 @@
                     </v-flex>
                     <v-flex xs12 md9>
                       <v-card-actions class="py-1">
-                  <v-btn v-if="providers_status" small color="error" @click="add_product(item.id)">
-                    <v-icon>add_shopping_cart</v-icon>Get this product in: 30 min!
+                  <v-btn v-if="providers_status" small color="success" class="text-capitalize elevation-0" @click="add_product(item)">
+                    <v-icon small class="pr-1">add_shopping_cart</v-icon>U ciebie już za godzine!
                   </v-btn>
                 </v-card-actions>
                 <v-card-title class="py-1">
@@ -44,6 +34,9 @@
                 <v-card-text class="py-0">
                   <p>{{ item.name }}</p>
                 </v-card-text>
+                <v-card-actions>
+                  <v-btn flat small :to="{name: 'Product', params: {id: item.id, item: item}}">View</v-btn>
+                </v-card-actions>
                         </v-flex>
                 
                   </v-layout>
@@ -66,11 +59,14 @@ export default {
   },
   items: {
     type: Array
-  }
+  },
+  categories: {
+    type: Object
+  },
   },
     methods: {
-    add_product(item_id) {
-      this.$emit('data', item_id);
+    add_product(item) {
+      this.$emit('data', item);
 
     }
   }
