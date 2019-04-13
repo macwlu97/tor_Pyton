@@ -52,6 +52,8 @@
               <v-btn flat @click="chart = false">Cancel</v-btn>
               <v-btn dark class="allegro_orange" flat @click="send_deliver_to_bus()">Buy Now</v-btn>
                <v-spacer />
+
+
             </v-card-actions>
           </v-card>
         </v-menu>
@@ -60,7 +62,7 @@
 
     <v-content>
       <v-container fluid>
-        <router-view :items="items" :providers_status="this.$status" @data="add_to_cart"></router-view>
+        <router-view :categories="categories" :items="items" :providers_status="this.$status" @data="add_to_cart"></router-view>
       </v-container>
     </v-content>
     <v-footer></v-footer>
@@ -74,7 +76,7 @@ export default {
     return {
       chartItems: [],
       chart: false,
-
+      categories: {},
       items: {},
       searchValue: ""
     };
@@ -83,6 +85,7 @@ export default {
     this.$socket.emit("status");
     this.$store.dispatch("search", "czerwony").then(response => {
       this.items = response.data.items.regular;
+      this.categories = response.data;
     });
   },
   methods: {
@@ -98,6 +101,7 @@ export default {
     search() {
       this.$store.dispatch("search", this.searchValue).then(response => {
         this.items = response.data.items.regular;
+        this.categories = response.data;
         this.$router.push("/products");
       });
     }
