@@ -1,22 +1,16 @@
 <template>
 <div>
-    <v-container grid-list-md>
-       
-      <v-card class="white">
-    
-          <!-- <div class="map"> 
-            <div class="tracking"> 
-              </div>
-            </div> -->
-        <div id="outerspace">
-<div class="kurier">
-<div><!-- rocket --></div>
-Tracking paczki
-</div>#Mapa
-</div>
-      </v-card>
-    </v-container>
-  </div> 
+  <v-container grid-list-md>
+    <v-card class="white">
+      <div id="outerspace">
+        <div class="kurier">
+          <div></div>
+          Tracking paczki
+        </div>#Mapa
+      </div>
+    </v-card>
+  </v-container>
+</div> 
 </template>
 
 <script>
@@ -44,6 +38,7 @@ export default {
     -moz-transition: 3s ease-in;
     -o-transition: 3s ease-in;
     transition: 3s ease-in;
+    
   }
   div.kurier div {
     width: 2vw;
@@ -55,17 +50,18 @@ export default {
     -moz-transition: 2s ease-in-out;
     -o-transition: 2s ease-in-out;
     transition: 2s ease-in-out;
+    
   }
 
   /* hover final state */
   #outerspace:hover div.kurier {
-    -webkit-transform: translate(540px,-200px);
-    -moz-transform: translate(540px,-200px);
-    -o-transform: translate(540px,-200px);
-    -ms-transform: translate(540px,-200px);
-    transform: translate(540px,-200px);
+    -webkit-transform: translate(480px,-200px);
+    -moz-transform: translate(480px,-200px);
+    -o-transform: translate(480px,-200px);
+    -ms-transform: translate(480px,-200px);
+    transform: translate(480px,-200px);
   }
-  #outerspace:hover div.rocket div {
+  #outerspace:hover div.kurier div {
     -webkit-transform: rotate(70deg);
     -moz-transform: rotate(70deg);
     -o-transform: rotate(70deg);
