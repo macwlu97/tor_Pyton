@@ -25,7 +25,7 @@
         <v-flex xs12 md9>
           <v-layout row wrap>
             <v-flex xs12 v-for="i in 40" :key="i">
-              <v-card hover class="py-2">
+              <v-card hover class="py-2" :to="{name: 'Product', params: {id: i}}" > 
                 <v-layout row wrap>
                   <v-flex xs12 md3>
                     <v-card-media>

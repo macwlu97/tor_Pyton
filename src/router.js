@@ -3,6 +3,7 @@ import Router from 'vue-router';
 import Home from './views/Home.vue';
 import PageLayout from './layouts/PageLayout.vue';
 import Products from './views/Products.vue';
+import Product from './views/Product.vue';
 
 Vue.use(Router);
 
@@ -17,15 +18,20 @@ export default new Router({
       children: [
         {
           path: '/home',
-          name: 'home',
+          name: 'Home',
           alias: '',
           component: Home,
         },
         {
           path: '/products',
-          name: 'products',
+          name: 'Products',
           component: Products
-        }
+        },
+        {
+          path: '/product/:id',
+          name: 'Product',
+          component: Product
+        },
       ],
     },
     {

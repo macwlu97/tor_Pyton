@@ -2,7 +2,7 @@
   <section>
     <v-container grid-list-xl>
       <v-layout row wrap>
-        <v-flex xs12 md3 v-for="i in 40" :key="i">
+        <v-flex xs12 md3 v-for="i in items" :key="i">
           <v-card hover>
             <v-card-media>
               <div class="product-image"/>
@@ -31,6 +31,16 @@ export default {
   props: { providers_status: {
     type: Boolean
   }},
+  data() {
+    return {
+      items: {},
+    };
+  },
+  mounted() {
+    this.$store.dispatch('getProducts').then(response => {
+      this.items = response.data;
+    })
+  },
   methods: {
     add_product(item_id) {
       this.$emit('data', item_id);
@@ -43,10 +53,13 @@ export default {
 <style lang="scss">
 .product-image {
   margin: 10px auto;
-
   display: block;
   width: 100%;
   height: 200px;
   background: #131313;
+  &__small{
+    height: 50px;
+    width: 50px;
+  }
 }
 </style>
